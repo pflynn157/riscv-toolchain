@@ -31,6 +31,8 @@ DONE:
 ; here, jump to that position in memory
 jal x30, 500
 
+addi x25, x0, 50
+
 hlt
 
 

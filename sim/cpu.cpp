@@ -20,6 +20,7 @@ CPU::CPU(RAM *ram, Bus *bus, uint32_t pc) {
 void CPU::run() {
     while (halt == false) {
         fetch();
+        if (halt) break;
         decode();
         execute();
         store();
@@ -180,7 +181,7 @@ void CPU::decode() {
             this->branch = 1;
             this->alu_src = 1;
             this->reg_write = 1;
-            this->rs1_src = 1;
+            this->rs1_src = 0;
             this->pc_write = 1;
             this->imm = imm_j;
         } break;
@@ -207,10 +208,21 @@ void CPU::execute() {
         return;
     }
     
-    // JAL
+    // JAL & JALR
+    // TODO: This needs cleanup
     if (branch && pc_write) {
-        setRegister(rd, pc);
-        pc = imm;
+        // JALR
+        if (rs1_src) {
+            uint32_t src1 = getRegister(rs1);
+            uint32_t dest = src1 + imm;
+            setRegister(rd, pc);
+            pc = dest;
+        
+        // JAL
+        } else {
+            setRegister(rd, pc);
+            pc = imm;
+        }
         return;
     }
     
