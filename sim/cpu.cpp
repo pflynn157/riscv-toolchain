@@ -72,6 +72,10 @@ void CPU::decode() {
     if ((imm_b & 0x0800) != 0) {
         imm_b |= 0xFFFFF000;
     }
+    
+    if ((imm_i & 0x0200) != 0) {
+        imm_i |= 0xFFFFF000;
+    }
         
     // Store Imm: imm[4:0] imm[11:5]
     uint32_t imm_s = rd | (func7 << 5);

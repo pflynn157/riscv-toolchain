@@ -53,6 +53,7 @@ enum TokenType {
     X11, X12, X13, X14, X15, X16, X17, X18, X19, X20,
     X21, X22, X23, X24, X25, X26, X27, X28, X29, X30,
     X31,
+    Bp, Ra, Sp,
     
     // Float registers
     F0, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10,

@@ -8,9 +8,9 @@ ecall x1, x3, 1
 add x4, x0, x0
 ecall x4, x3, 3
 
-; Now write bytes to the disk
+; Read bytes until the byte is 0xFF
     add x10, x0, x0
-    addi x11, x0, 20
+    addi x11, x0, 100
     add x12, x0, x0
     add x15, x0, x0
 LOOP_CMP:
@@ -29,7 +29,8 @@ LOOP:
 DONE:
 
 ; here, jump to that position in memory
-jal x30, 500
+addi bp, x0, 500
+jal ra, 500
 
 addi x25, x0, 50
 

@@ -704,9 +704,13 @@ int Pass2::getRegister(TokenType token) {
         case X26: return 26;
         case X27: return 27;
         case X28: return 28;
-        case X29: return 29;
-        case X30: return 30;
-        case X31: return 31;
+        
+        case X29:
+        case Bp: return 29;
+        case X30:
+        case Ra: return 30;
+        case X31:
+        case Sp: return 31;
         
         default: {}
     }

@@ -192,6 +192,10 @@ bool Lex::isKeyword() {
     else if (buffer == "x30") return true;
     else if (buffer == "x31") return true;
     
+    else if (buffer == "bp") return true;
+    else if (buffer == "ra") return true;
+    else if (buffer == "sp") return true;
+    
     else if (buffer == "f0") return true;
     else if (buffer == "f1") return true;
     else if (buffer == "f2") return true;
@@ -334,6 +338,10 @@ TokenType Lex::getKeyword() {
     else if (buffer == "x30") return X30;
     else if (buffer == "x31") return X31;
     
+    else if (buffer == "bp") return Bp;
+    else if (buffer == "ra") return Ra;
+    else if (buffer == "sp") return Sp;
+    
     else if (buffer == "f0") return F0;
     else if (buffer == "f1") return F1;
     else if (buffer == "f2") return F2;
@@ -459,6 +467,10 @@ void Token::print() {
         case X29: std::cout << "x29 "; break;
         case X30: std::cout << "x30 "; break;
         case X31: std::cout << "x31 "; break;
+        
+        case Bp: std::cout << "bp "; break;
+        case Ra: std::cout << "ra "; break;
+        case Sp: std::cout << "sp "; break;
         
         case F0: std::cout << "f0 "; break;
         case F1: std::cout << "f1 "; break;
