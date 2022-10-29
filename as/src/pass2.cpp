@@ -30,6 +30,7 @@ void Pass2::run() {
             case And: build_r(token.type); break;
             
             case Jalr:
+            case Ecall:
             case Addi:
             case Slti:
             case Sltiu:
@@ -200,6 +201,9 @@ void Pass2::build_i(TokenType opcode) {
     
     if (opcode == Jalr) {
         instr |= (uint32_t)(0b1100111);     // (JALR) I-Type opcode
+    } else if (opcode == Ecall) {
+        instr |= (uint32_t)(0b1100111);     // (ECALL) I-Type opcode
+        func3 = 0b111;
     } else {
         instr |= (uint32_t)(0b0010011);     // I-Type opcode
     }
@@ -336,7 +340,7 @@ void Pass2::build_store(TokenType opcode) {
     checkNL();
     
     // Encode func3
-    int func3 = 0b010;
+    uint8_t func3 = 0b010;
     switch (opcode) {
         case Sb: func3 = 0b000; break;
         case Sh: func3 = 0b001; break;
@@ -346,7 +350,7 @@ void Pass2::build_store(TokenType opcode) {
     }
     
     // Encode the immediate
-    uint8_t imm1 = (uint8_t)imm;
+    uint8_t imm1 = (uint8_t)(imm & 0x1F);
     uint8_t imm2 = (uint8_t)(imm >> 5);
     
     // Encode the instruction

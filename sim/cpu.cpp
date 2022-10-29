@@ -2,14 +2,16 @@
 #include <iostream>
 
 #include "cpu.hpp"
+#include "config.hpp"
 
 //
 // Initializies the CPU
 //
-CPU::CPU(RAM *ram, uint32_t pc) {
+CPU::CPU(RAM *ram, Bus *bus, uint32_t pc) {
     registers = new uint32_t[32];
     this->pc = pc;
     this->ram = ram;
+    this->bus = bus;
 }
 
 //
@@ -24,11 +26,11 @@ void CPU::run() {
         
         // DISPLAY CONTROLER
         if (halt == false) {
-            uint32_t dsp_address = 0x0250;
+            uint32_t dsp_address2 = 0x0250;
             char c;
             do {
-                c = (char)ram->getMemory(dsp_address);
-                dsp_address += 1;
+                c = (char)ram->getMemory(dsp_address2);
+                dsp_address2 += 1;
                 if (c == 0x0A) puts("");
                 else if (c != 0) printf("%c", c);
             } while (c != 0);
@@ -101,15 +103,20 @@ void CPU::decode() {
         } break;
         
         //
-        // JALR (I-TYPE)
+        // JALR/ECALL (I-TYPE)
         //
         case 0b1100111: {
-            this->branch = 1;
-            this->alu_src = 1;
-            this->reg_write = 1;
-            this->rs1_src = 1;
-            this->pc_write = 1;
-            this->imm = imm_i;
+            if (func3 == 0b111) {
+                this->io = 1;
+                this->imm = imm_i;
+            } else {
+                this->branch = 1;
+                this->alu_src = 1;
+                this->reg_write = 1;
+                this->rs1_src = 1;
+                this->pc_write = 1;
+                this->imm = imm_i;
+            }
         } break;
         
         //
@@ -186,10 +193,24 @@ void CPU::decode() {
 // Execute
 //
 void CPU::execute() {
+    if (io) {
+        io_command = imm;
+        io_port = getRegister(rs1);
+        io_data = getRegister(rd);
+        return;
+    }
+
     // For add upper immediate
     // TODO: May need to clean up
     if (addui) {
         setRegister(rd, imm << 12);
+        return;
+    }
+    
+    // JAL
+    if (branch && pc_write) {
+        setRegister(rd, pc);
+        pc = imm;
         return;
     }
     
@@ -341,6 +362,16 @@ uint32_t CPU::executeBRU(uint32_t src1, uint32_t src2) {
 // Store (write-back)
 //
 void CPU::store() {
+    // How IO works:
+    // Query the bus for the IO device, print an error if no IO device (TODO: Want this?)
+    // If found, send the command and data
+    // Save any data to RD
+    //
+    if (io) {
+        uint32_t result = bus->issueCommand(io_port, io_command, io_data);
+        setRegister(rd, result);
+    }
+
     if (mem_write2) {
         switch (size2) {
             case 0b000: ram->setMemory8(address2, data2); break;
@@ -375,11 +406,15 @@ void CPU::reset() {
     pc_write = 0;
     alu_invert = 0;
     addui = 0;
+    io = 0;
     imm = 0;
     mem_read2 = 0;
     mem_write2 = 0;
     address2 = 0;
     data2 = 0;
     size2 = 0;
+    io_command = 0;
+    io_port = 0;
+    io_data = 0;
 }
 

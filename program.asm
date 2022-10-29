@@ -1,42 +1,36 @@
-addi x5, x0, 592
 
-addi x10, x0, 72
-addi x11, x0, 105
-addi x12, x0, 10
+addi x3, x0, 2
 
-sb x11, 1(x5)
-sb x12, 2(x5)
-sb x10, 0(x5)
+; identify first
+ecall x1, x3, 1
 
-sw x0, 0(x5)
+; set position to 00
+add x4, x0, x0
+ecall x4, x3, 3
 
-addi x20, x0, STR1
-
-addi x21, x0, 10
-sb x21, 8(x5)
-
-addi x22, x0, 6
-addi x23, x0, 1
-
+; Now write bytes to the disk
+    add x10, x0, x0
+    addi x11, x0, 20
+    add x12, x0, x0
+    add x15, x0, x0
+LOOP_CMP:
+    beq x10, x11, DONE
 LOOP:
-add x15, x20, x22
-add x16, x5, x22
+    add x4, x10, x12
+    ecall x4, x3, 3
 
-lb x21, 0(x15)
-sb x21, 0(x16)
+    add x5, x0, x10
+    ecall x5, x3, 1
+    sw x5, 500(x15)
+    addi x15, x15, 1
 
-sub x22, x22, x23
-bne x22, x0, LOOP
+    addi x10, x10, 1
+    beq x0, x0, LOOP_CMP
+DONE:
 
-lb x21, 0(x20)
-sb x21, 0(x5)
-
-sw x0, 0(x5)
-sw x0, 4(x5)
-addi x21, x0, 10
-sb x21, 0(x5)
+; here, jump to that position in memory
+jal x30, 500
 
 hlt
 
-STR1: "Hello!"
 

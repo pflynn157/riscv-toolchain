@@ -43,7 +43,7 @@ enum TokenType {
     Beq, Bne, Blt, Bge, Bltu, Bgeu,
     
     // Other instructions
-    Lui, Auipc, Jal, Jalr,
+    Lui, Auipc, Jal, Jalr, Ecall,
     
     // Float instructions
     Flw, Fsw, Fadds,

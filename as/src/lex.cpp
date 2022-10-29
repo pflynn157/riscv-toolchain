@@ -110,6 +110,7 @@ bool Lex::isSymbol(char c) {
 bool Lex::isKeyword() {
     if (buffer == "nop") return true;
     else if (buffer == "hlt") return true;
+    else if (buffer == "ecall") return true;
     
     else if (buffer == "add") return true;
     else if (buffer == "sub") return true;
@@ -251,6 +252,7 @@ TokenType Lex::getSymbol(char c) {
 TokenType Lex::getKeyword() {
     if (buffer == "nop") return Nop;
     else if (buffer == "hlt") return Hlt;
+    else if (buffer == "ecall") return Ecall;
     
     else if (buffer == "add") return Add;
     else if (buffer == "sub") return Sub;
@@ -376,6 +378,7 @@ void Token::print() {
         case Eof: std::cout << "EOF "; break;
         case Nop: std::cout << "nop "; break;
         case Hlt: std::cout << "hlt "; break;
+        case Ecall: std::cout << "ecall "; break;
         
         case Add: std::cout << "add "; break;
         case Sub: std::cout << "sub "; break;
