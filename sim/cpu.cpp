@@ -24,18 +24,6 @@ void CPU::run() {
         decode();
         execute();
         store();
-        
-        // DISPLAY CONTROLER
-        if (halt == false) {
-            uint32_t dsp_address2 = 0x0250;
-            char c;
-            do {
-                c = (char)ram->getMemory(dsp_address2);
-                dsp_address2 += 1;
-                if (c == 0x0A) puts("");
-                else if (c != 0) printf("%c", c);
-            } while (c != 0);
-        }
     }
 }
 
@@ -398,7 +386,17 @@ void CPU::store() {
     }
     
     if (mem_read2) {
-        uint32_t data = ram->getMemory(address2);
+        //uint32_t data = ram->getMemory(address2);
+        //setRegister(rd, data);
+        uint32_t data = 0;
+        
+        switch (size2) {
+            case 0b000: data = ram->getMemory8(address2); break;
+            case 0b001: data = ram->getMemory8(address2); break;
+            case 0b010: data = ram->getMemory(address2); break;
+            default: {}
+        }
+        
         setRegister(rd, data);
     }
 }

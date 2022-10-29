@@ -5,6 +5,7 @@
 #include "cpu.hpp"
 #include "bus.hpp"
 #include "hdd.hpp"
+#include "display.hpp"
 
 int main(int argc, char **argv) {
     // Create RAM and load a program to it
@@ -14,6 +15,9 @@ int main(int argc, char **argv) {
     Bus *bus = new Bus;
     Hdd *hd0 = new Hdd("./sata0.bin");
     bus->attachDevice(2, hd0);
+    
+    Display *dsp = new Display;
+    bus->attachDevice(0, dsp);
 
     // RUN the CPU
     CPU *cpu0 = new CPU(ram, bus);

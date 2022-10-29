@@ -1,4 +1,5 @@
 
+
 addi x3, x0, 2
 
 ; identify first
@@ -10,7 +11,7 @@ ecall x4, x3, 3
 
 ; Read bytes until the byte is 0xFF
     add x10, x0, x0
-    addi x11, x0, 100
+    addi x11, x0, 450
     add x12, x0, x0
     add x15, x0, x0
 LOOP_CMP:
@@ -35,5 +36,7 @@ jal ra, 500
 addi x25, x0, 50
 
 hlt
+
+STR1: "Hi!"
 
 

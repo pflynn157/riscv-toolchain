@@ -44,6 +44,13 @@ void RAM::setMemory32(uint32_t address, uint32_t item) {
 }
 
 //
+// Returns an 8-bit location in memory
+//
+uint8_t RAM::getMemory8(uint32_t address) {
+    return memory[address];
+}
+
+//
 // Returns a 32-bit location in memory
 //
 uint32_t RAM::getMemory(uint32_t address) {
