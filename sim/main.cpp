@@ -9,7 +9,7 @@
 int main(int argc, char **argv) {
     // Create RAM and load a program to it
     RAM *ram = new RAM(4096);
-    ram->loadProgram("./program.bin");
+    ram->loadProgram("./boot.bin");
     
     Bus *bus = new Bus;
     Hdd *hd0 = new Hdd("./sata0.bin");
