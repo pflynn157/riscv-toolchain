@@ -1,7 +1,13 @@
+#include <iostream>
+#include <cstdio>
+
 #include "hdd.hpp"
 
 Hdd::Hdd(std::string path) {
     file = fopen(path.c_str(), "rwb+");
+    if (file == NULL) {
+        std::cerr << "Error: Invalid virtual disk file." << std::endl;
+    }
 }
 
 //
@@ -12,6 +18,8 @@ Hdd::Hdd(std::string path) {
 // 3 -> POS (rd holds the position)
 //
 uint32_t Hdd::issueCommand(uint8_t data, uint32_t command) {
+    if (file == NULL) return 0;
+
     switch (command) {
         // IDENTIFY
         case 0: return 1;

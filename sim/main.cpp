@@ -9,7 +9,7 @@
 
 int main(int argc, char **argv) {
     // Create RAM and load a program to it
-    RAM *ram = new RAM(4096);
+    RAM *ram = new RAM(5632);
     ram->loadProgram("./boot.bin");
     
     Bus *bus = new Bus;

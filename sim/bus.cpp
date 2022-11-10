@@ -12,6 +12,7 @@ uint32_t Bus::issueCommand(uint8_t port, uint32_t command, uint8_t data) {
     }
     
     Device *device = devices[port];
+    if (device == nullptr) return 0;
     return device->issueCommand(data, command);
 }
 

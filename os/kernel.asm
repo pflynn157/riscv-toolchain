@@ -1,6 +1,6 @@
 
 boot:
-    addi sp, x0, 1024
+    addi sp, x0, 2048
     sw ra, 0(sp)
     
     jalr ra, bp, kmain
@@ -19,6 +19,9 @@ kmain:
     
     addi x1, x0, STR1
     jalr ra, bp, println
+    
+    ;addi x1, bp, 4
+    jalr ra, bp, BOOT_END
     
     lw ra, 0(sp)
     addi sp, sp, -8
@@ -88,4 +91,8 @@ STR1: "Hello!"
 nop
 MSG1: "Welcome to RISC-V OS!"
 nop
-    
+
+nop
+BOOT_END:
+    nop
+    nop
