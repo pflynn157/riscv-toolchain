@@ -4,7 +4,7 @@
 
 class Device {
 public:
-    virtual uint32_t issueCommand(uint8_t data, uint32_t command) {
+    virtual uint8_t issueCommand(uint8_t data, uint32_t command) {
         return 0;
     }
 };
@@ -17,7 +17,7 @@ public:
 class Bus {
 public:
     Bus();
-    uint32_t issueCommand(uint8_t port, uint32_t command, uint8_t data);
+    uint8_t issueCommand(uint8_t port, uint32_t command, uint8_t data);
     void attachDevice(uint8_t port, Device *device);
 private:
     Device **devices;

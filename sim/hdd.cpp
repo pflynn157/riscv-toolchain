@@ -17,7 +17,7 @@ Hdd::Hdd(std::string path) {
 // 2 -> WRITE (rd is the destination)
 // 3 -> POS (rd holds the position)
 //
-uint32_t Hdd::issueCommand(uint8_t data, uint32_t command) {
+uint8_t Hdd::issueCommand(uint8_t data, uint32_t command) {
     if (file == NULL) return 0;
 
     switch (command) {

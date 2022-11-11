@@ -6,7 +6,7 @@
 
 class Display : public Device {
 public:
-    uint32_t issueCommand(uint8_t data, uint32_t command) override;
+    uint8_t issueCommand(uint8_t data, uint32_t command) override;
 private:
     std::string buffer = "";
 };

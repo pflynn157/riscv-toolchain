@@ -8,7 +8,7 @@
 // 2 -> Clear
 // 3 -> Load character
 //
-uint32_t Display::issueCommand(uint8_t data, uint32_t command) {
+uint8_t Display::issueCommand(uint8_t data, uint32_t command) {
     switch (command) {
         // Display
         case 1: {

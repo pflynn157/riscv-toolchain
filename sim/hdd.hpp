@@ -9,7 +9,7 @@
 class Hdd : public Device {
 public:
     explicit Hdd(std::string path);
-    uint32_t issueCommand(uint8_t data, uint32_t command) override;
+    uint8_t issueCommand(uint8_t data, uint32_t command) override;
     void close();
 private:
     FILE *file;

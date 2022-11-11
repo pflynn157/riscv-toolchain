@@ -20,7 +20,6 @@ kmain:
     addi x1, x0, STR1
     jalr ra, bp, println
     
-    ;addi x1, bp, 4
     jalr ra, bp, BOOT_END
     
     lw ra, 0(sp)
