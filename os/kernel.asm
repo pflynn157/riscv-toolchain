@@ -15,11 +15,9 @@ kmain:
     
     addi x20, x0, 60
     
-    ;addi x1, x0, MSG1
     addi x1, bp, MSG1
     jalr ra, bp, println
     
-    ;addi x1, x0, STR1
     addi x1, bp, STR1
     jalr ra, bp, println
     
@@ -39,7 +37,6 @@ println:
     sw ra, 0(sp)
     
     ; Setup the base pointer and get string length
-    ;add x3, bp, x1
     add x3, x0, x1
     sw x3, 4(sp)
     jalr ra, bp, strlen
@@ -77,7 +74,6 @@ strlen:
     addi sp, sp, 8
     sw ra, 0(sp)
     
-    ;add x1, x1, bp
     addi x2, x0, 0
     lb x3, 0(x1)
     LOOP_CMP1:
@@ -90,8 +86,6 @@ strlen:
     DONE1:
     
     add x1, x0, x2
-    ;add x23, x0, x1
-    ;add x23, x0, x1
     
     lw ra, 0(sp)
     addi sp, sp, -8
