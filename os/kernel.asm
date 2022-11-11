@@ -1,6 +1,7 @@
 
 boot:
-    addi sp, x0, 2048
+    lui sp, 1
+    slli sp, sp, 1
     sw ra, 0(sp)
     
     jalr ra, bp, kmain
@@ -20,6 +21,9 @@ kmain:
     addi x1, x0, STR1
     jalr ra, bp, println
     
+    add x1, x0, bp
+    addi x2, x0, println
+    addi x3, bp, BOOT_END
     jalr ra, bp, BOOT_END
     
     lw ra, 0(sp)

@@ -11,7 +11,7 @@ ecall x4, x3, 3
 
 ; Read bytes until the byte is 0xFF
     add x10, x0, x0
-    addi x11, x0, 450
+    addi x11, x0, 550
 LOOP_CMP:
     beq x10, x11, DONE
 LOOP:
