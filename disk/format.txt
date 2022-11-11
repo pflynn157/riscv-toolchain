@@ -1,0 +1,17 @@
+struct Disk {
+    uint8 signature;
+    int count;
+    DiskEntry *entries;
+}
+
+struct DiskEntry {
+    uint8 type;     // 1 = folder, 2 = file
+    
+    // For files
+    uint32 size;
+    uint32 address;
+    
+    // Folders
+    int count;
+    DiskEntry *entries;
+}
