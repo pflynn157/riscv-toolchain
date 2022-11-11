@@ -30,6 +30,20 @@ std::map<std::string, int> Pass1::run() {
                     for (char c : s) {
                         ++lc;
                     }
+                } else if (token.type == LBracket) {
+                    token = lex->getNext();
+                    if (token.type != Imm) {
+                        std::cerr << "Error: Expected integer after bracket." << std::endl;
+                        return labels;
+                    }
+                    
+                    lc += token.imm;
+                    
+                    token = lex->getNext();
+                    if (token.type != RBracket) {
+                        std::cerr << "Error: Expected closing \']\'." << std::endl;
+                        return labels;
+                    }
                 }
             }
             

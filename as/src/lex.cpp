@@ -100,6 +100,8 @@ bool Lex::isSymbol(char c) {
         case ',':
         case '(':
         case ')':
+        case '[':
+        case ']':
         case ':': return true;
         
         default: {}
@@ -246,6 +248,8 @@ TokenType Lex::getSymbol(char c) {
         case ',': return Comma;
         case '(': return LParen;
         case ')': return RParen;
+        case '[': return LBracket;
+        case ']': return RBracket;
         case ':': return Colon;
         
         default: {}

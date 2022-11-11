@@ -88,6 +88,14 @@ void Pass2::run() {
                         fputc(c, file);
                     }
                     lc += token.id.length();
+                } else if (token.type == LBracket) {
+                    token = lex->getNext();
+                    for (int i = 0; i<token.imm; i++) {
+                        fputc(0, file);
+                    }
+                    lc += token.imm;
+                    
+                    lex->getNext();
                 }
             } break;
             

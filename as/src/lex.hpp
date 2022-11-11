@@ -65,6 +65,7 @@ enum TokenType {
     Nl,
     Comma,
     LParen, RParen,
+    LBracket, RBracket,
     Colon,
     
     Id,
