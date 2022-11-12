@@ -1,11 +1,8 @@
-test1:
+main:
     addi sp, sp, 4
     sw ra, 0(sp)
     
-    add x10, x0, bp
-    addi x11, x0, STR1
-    addi x12, bp, STR1
-    
+    ; print the welcome message
     addi x2, x0, 1
     addi x1, bp, STR1
     addi x4, x0, 2
