@@ -5,4 +5,5 @@ add_compile_options(-std=c++17 -g)
 
 add_subdirectory(as)
 add_subdirectory(sim)
+add_subdirectory(udo)
 
