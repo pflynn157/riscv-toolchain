@@ -9,6 +9,8 @@
 //
 CPU::CPU(RAM *ram, Bus *bus, uint32_t pc) {
     registers = new uint32_t[32];
+    interrupts = new uint32_t[256];
+    
     this->pc = pc;
     this->ram = ram;
     this->bus = bus;
@@ -372,8 +374,29 @@ void CPU::store() {
     // Save any data to RD
     //
     if (io) {
-        uint32_t result = bus->issueCommand(io_port, io_command, io_data);
-        setRegister(rd, result);
+        // System commands
+        if (io_port == 1) {
+            switch (io_command) {
+                // Triggers a call
+                // io_data -> call index
+                case 0: {
+                    setRegister(30, pc);
+                    pc = interrupts[io_data];
+                } break;
+                
+                // Sets a call
+                // io_data -> the address of the call
+                // io_command -> the index
+                default: {
+                    interrupts[io_command] = io_data;
+                }
+            }
+        
+        // Everything else out on the bus
+        } else {
+            uint32_t result = bus->issueCommand(io_port, io_command, io_data);
+            setRegister(rd, result);
+        }
     }
 
     if (mem_write2) {

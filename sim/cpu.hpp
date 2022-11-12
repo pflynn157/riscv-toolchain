@@ -15,6 +15,7 @@ public:
 private:
     // Variables and structures
     uint32_t *registers;
+    uint32_t *interrupts;
     uint32_t pc;
     RAM *ram;
     Bus *bus;
