@@ -12,7 +12,7 @@ uint8_t StdDisplay::issueCommand(uint8_t data, uint32_t command) {
     switch (command) {
         // Display
         case 1: {
-            std::cout << buffer;
+            emit ctrl->resultReady(QString::fromStdString(buffer));
         } break;
         
         // Clear

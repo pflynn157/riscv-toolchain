@@ -9,7 +9,7 @@ void CpuController::run() {
     Hdd *hd0 = new Hdd("./sata0.bin");
     bus->attachDevice(2, hd0);
     
-    StdDisplay *dsp = new StdDisplay;
+    StdDisplay *dsp = new StdDisplay(this);
     bus->attachDevice(0, dsp);
 
     // RUN the CPU
@@ -38,5 +38,7 @@ void GuiController::run() {
 }
 
 void GuiController::handleResults(QString text) {
-    edit->setText(text);
+    QString text2 = edit->toPlainText();
+    text2 += text;
+    edit->setText(text2);
 }
