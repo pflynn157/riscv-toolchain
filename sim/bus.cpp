@@ -4,6 +4,7 @@
 
 Bus::Bus() {
     devices = new Device*[256];
+    for (int i = 0; i<256; i++) devices[i] = nullptr;
 }
 
 uint8_t Bus::issueCommand(uint8_t port, uint32_t command, uint8_t data) {
