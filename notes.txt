@@ -1,0 +1,8 @@
+in x1, x2, x3   | x1 -> data; x2 -> command; x3 -> address
+out x1, x2, x3  | x1 -> data dest; x2 -> command; x3 -> address
+syscall x1, x2  | x1 -> system call number; x2 -> address to set (0 if trigger)
+
+1110011 w/ func3 = 000 -> ebreak
+                   010 -> in
+                   011 -> out
+                   111 -> syscall
